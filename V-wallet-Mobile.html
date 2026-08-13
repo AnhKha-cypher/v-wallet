@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b7a53"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>V wallet — Mobile</title>
+<style>
+:root{--g:#0b7a53;--g2:#13a06e;--pale:#e8f7f0;--ink:#14221c;--muted:#7a8881;--bg:#f5f8f6;--white:#fff;--line:#e5ece8;--red:#d95d68;--purple:#7864c5;--shadow:0 12px 35px rgba(20,60,43,.07);--r:20px}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg)}
+button,input,select{font:inherit}button{cursor:pointer}.hide{display:none!important}
+.shell{min-height:100vh}.side{position:fixed;left:0;top:0;bottom:0;width:250px;background:#fff;border-right:1px solid var(--line);padding:25px 15px;z-index:10;display:flex;flex-direction:column}
+.brand{display:flex;align-items:center;gap:11px;padding:0 9px 28px}.vlogo{width:45px;height:45px;border-radius:14px;background:linear-gradient(145deg,#18b47e,#08704b);display:grid;place-items:center;color:white;font-size:23px;font-weight:900;box-shadow:0 8px 18px #0b7a5326}.brand b{font-size:18px;letter-spacing:-.02em}.brand small{display:block;color:#93a099;font-size:9px;margin-top:2px}
+.menu{display:grid;gap:6px}.nav{border:0;background:transparent;color:#738078;text-align:left;padding:13px 14px;border-radius:13px;display:flex;align-items:center;gap:12px;font-size:12px;font-weight:750}.nav .ico{width:20px;text-align:center;font-size:17px}.nav:hover,.nav.active{background:var(--pale);color:var(--g)}
+.sidefoot{margin-top:auto;background:#f2f8f5;border:1px solid #dfece6;border-radius:15px;padding:12px;display:flex;gap:9px;align-items:center}.shield{width:29px;height:29px;border-radius:9px;background:#d9f1e7;color:var(--g);display:grid;place-items:center;font-weight:900}.sidefoot b{font-size:10px;display:block}.sidefoot small{color:var(--muted);font-size:8px}
+.main{margin-left:250px;padding:27px 38px 60px;max-width:1500px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}.eyebrow{font-size:9px;letter-spacing:.18em;color:#98a49f;font-weight:900}.top h1{margin:4px 0 0;font-size:28px;letter-spacing:-.03em}.user{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:11px}.avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--pale);color:var(--g);font-weight:900}
+.page{display:none}.page.active{display:block}.hero{position:relative;overflow:hidden;background:linear-gradient(120deg,#096d4a,#17a875);border-radius:24px;padding:28px 31px;color:#fff;display:flex;align-items:center;justify-content:space-between;margin-bottom:15px;min-height:165px;box-shadow:0 18px 38px #0b7a531e}.hero:after{content:"";position:absolute;width:250px;height:250px;border:42px solid #ffffff12;border-radius:50%;right:60px;top:-105px}.tag{display:inline-flex;padding:6px 10px;border-radius:999px;background:#ffffff18;border:1px solid #ffffff2d;font-size:9px;font-weight:900}.hero h2{margin:10px 0 6px;font-size:27px;letter-spacing:-.03em}.hero p{margin:0;max-width:690px;color:#e4f7ef;font-size:12px;line-height:1.65}.hero-symbol{position:relative;z-index:1;font-size:76px;font-weight:900;opacity:.18;margin-right:50px}
+.ai{background:#152a22;border-radius:21px;padding:13px 13px 10px;margin-bottom:15px;color:#fff;box-shadow:var(--shadow)}.aihead{display:flex;align-items:center;gap:10px;padding:3px 5px 10px}.spark{width:28px;height:28px;border-radius:9px;background:#1b9d70;display:grid;place-items:center}.aihead b{display:block;font-size:12px}.aihead small{display:block;color:#a8bcb4;font-size:9px;margin-top:2px}.composer{display:flex;gap:8px}.composer input{flex:1;min-width:0;background:#1e382e;border:1px solid #335147;color:white;border-radius:14px;padding:13px 15px;outline:0;font-size:12px}.composer input:focus{border-color:#5bd0a5}.composer input::placeholder{color:#9bb0a7}.round{border:0;width:45px;height:45px;border-radius:50%;display:grid;place-items:center}.mic{background:#28483d;color:#76dcb9}.send{background:#18a879;color:#fff;font-size:18px}.status{font-size:9px;color:#9db2aa;padding:7px 5px 0}.status.live{color:#78e0bc}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:16px}.metric{background:#fff;border:1px solid var(--line);border-radius:18px;padding:17px;box-shadow:0 5px 18px #16382b08}.mi{width:31px;height:31px;border-radius:10px;display:grid;place-items:center;font-weight:900;margin-bottom:10px}.mi.green{background:#e0f5ed;color:var(--g)}.mi.red{background:#fbe8ea;color:var(--red)}.mi.purple{background:#eeeafb;color:var(--purple)}.metric span{display:block;color:var(--muted);font-size:10px}.metric strong{display:block;font-size:21px;margin:6px 0 3px;letter-spacing:-.02em}.metric small{font-size:9px;color:#9ba7a1}
+.two{display:grid;grid-template-columns:1.35fr 1fr;gap:16px}.card{background:#fff;border:1px solid var(--line);border-radius:19px;padding:18px;box-shadow:0 5px 18px #16382b07;margin-bottom:16px}.head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.head b{font-size:12px}.head small{display:block;color:var(--muted);font-size:9px;margin-top:3px}.legend{font-size:9px;color:var(--muted)}.dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin:0 4px 0 8px}.dot.i{background:#52c298}.dot.e{background:#e88289}
+.chart{height:225px;display:flex;align-items:flex-end;gap:12px;padding:10px 8px 16px}.bargrp{height:100%;flex:1;display:flex;align-items:flex-end;justify-content:center;gap:4px;position:relative}.bar{width:25%;border-radius:6px 6px 2px 2px;min-height:2px}.bar.i{background:#58c79b}.bar.e{background:#ed8e96}.bargrp label{position:absolute;bottom:-12px;color:#8a968f;font-size:8px}
+.cat{display:grid;grid-template-columns:90px 1fr 65px;gap:8px;align-items:center;margin:14px 0;font-size:9px}.track{height:7px;border-radius:99px;background:#edf2ef;overflow:hidden}.fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#12a16f,#6bcda9)}.cat b{text-align:right;font-size:9px}.tx{display:grid;grid-template-columns:37px 1fr auto;gap:10px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line)}.tx:last-child{border-bottom:0}.txicon{width:35px;height:35px;border-radius:11px;background:#f0f5f2;display:grid;place-items:center}.txtitle{font-size:11px;font-weight:800}.txmeta{font-size:9px;color:var(--muted);margin-top:2px}.amount{font-size:11px;font-weight:900}.amount.in{color:var(--g)}.amount.out{color:var(--red)}.link{border:0;background:none;color:var(--g);font-size:10px;font-weight:800}
+.txdelete{width:25px;height:25px;border:0;border-radius:8px;background:#fff0f1;color:var(--red);font-size:17px;line-height:1;font-weight:800;opacity:.75;transition:.15s}
+.txdelete:hover{opacity:1;background:#fbdcdf;transform:scale(1.05)}
+.preview{background:#fff;border:1px solid #c8e9dc;border-radius:18px;padding:17px;margin-bottom:15px;box-shadow:var(--shadow)}.preview h3{font-size:13px;margin:0 0 8px}.prow{display:grid;grid-template-columns:32px 1fr auto;gap:9px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}.prow:last-of-type{border-bottom:0}.pico{width:31px;height:31px;border-radius:10px;background:var(--pale);display:grid;place-items:center}.pamount{font-size:11px;font-weight:900}.pamount.in{color:var(--g)}.pamount.out{color:var(--red)}.actions{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}.primary,.secondary{border:0;border-radius:11px;padding:10px 14px;font-size:11px;font-weight:800}.primary{background:var(--g);color:#fff;box-shadow:0 7px 15px #0b7a5324}.secondary{background:#edf2ef;color:var(--ink)}
+.section{display:flex;justify-content:space-between;align-items:end;margin-bottom:16px}.section h2{font-size:23px;margin:0 0 4px}.section p{font-size:11px;color:var(--muted);margin:0}.filters{display:grid;grid-template-columns:1fr 180px 180px;gap:9px}.filters input,.filters select,.modal input,.modal select{border:1px solid var(--line);border-radius:11px;padding:10px 12px;outline:0;background:#fff;color:var(--ink);font-size:11px}.filters input:focus,.modal input:focus,.modal select:focus{border-color:#76d1ae}
+.goalgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.goal{background:#fff;border:1px solid var(--line);border-radius:19px;padding:20px}.goalhead{display:flex;justify-content:space-between;font-size:12px;font-weight:850}.pct{color:var(--g)}.goaltrack{height:9px;background:#eaf1ed;border-radius:99px;overflow:hidden;margin:15px 0 8px}.goalfill{height:100%;background:linear-gradient(90deg,var(--g),#35ba89);border-radius:99px}.goalmoney{display:flex;justify-content:space-between;color:var(--muted);font-size:9px}
+.insight{padding:12px 0;border-bottom:1px solid var(--line);font-size:11px;line-height:1.55}.insight:last-child{border:0}
+.modal{position:fixed;inset:0;z-index:30;display:grid;place-items:center}.backdrop{position:absolute;inset:0;background:#10231ccc}.dialog{position:relative;width:min(430px,calc(100% - 28px));background:white;border-radius:21px;padding:20px;box-shadow:0 30px 80px #0004}.dialoghead{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.dialog h3{margin:0;font-size:16px}.close{width:32px;height:32px;border:0;border-radius:50%;background:#eef2ef;font-size:19px}.form{display:grid;gap:11px}.form label{display:grid;gap:6px;font-size:10px;font-weight:800}.formactions{display:flex;justify-content:flex-end;gap:8px;margin-top:4px}
+@media(max-width:950px){.side{width:76px}.brand div:not(.vlogo),.sidefoot{display:none}.nav{justify-content:center;font-size:0}.nav .ico{font-size:17px}.main{margin-left:76px;padding:22px 20px}.cards{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}}
+@media(max-width:600px){.side{top:auto;bottom:0;left:0;right:0;width:100%;height:65px;padding:5px 8px;border-right:0;border-top:1px solid var(--line)}.side .brand{display:none}.menu{display:flex;justify-content:space-around}.nav{padding:8px 12px}.main{margin:0;padding:16px 12px 82px}.top h1{font-size:23px}.user span{display:none}.hero{min-height:180px;padding:22px}.hero h2{font-size:23px}.hero-symbol{display:none}.cards{gap:8px}.metric{padding:13px}.metric strong{font-size:17px}.two{display:block}.filters{grid-template-columns:1fr}.goalgrid{grid-template-columns:1fr}}
+
+/* V wallet V2.4 — mobile-first */
+html{background:#f3f7f5}
+body{background:#f3f7f5}
+@media (min-width:601px){
+  body{display:flex;justify-content:center}
+  .shell{width:390px;min-height:844px;background:#f5f8f6;box-shadow:0 0 0 1px #dfe9e4,0 25px 70px rgba(20,60,43,.16);position:relative;overflow:hidden}
+  .side{position:sticky;top:0;width:100%;height:64px;bottom:auto;border-right:0;border-bottom:1px solid var(--line);padding:7px 8px;display:block}
+  .brand{height:49px;justify-content:center;padding:0}
+  .brand .vlogo{width:36px;height:36px;border-radius:11px;font-size:19px}
+  .brand b{font-size:16px}
+  .brand small{display:none}
+  .menu{display:flex;position:absolute;left:8px;right:8px;bottom:-1px;height:64px;transform:translateY(64px);background:#fff;border-top:1px solid var(--line);padding:7px 2px;justify-content:space-around}
+  .nav{padding:6px 8px;justify-content:center;flex-direction:column;gap:2px;font-size:8px}
+  .nav .ico{font-size:16px;width:auto}
+  .sidefoot{display:none}
+  .main{margin:0;padding:17px 12px 84px;max-width:none;width:100%}
+  .top{margin-bottom:17px}
+  .top h1{font-size:23px}
+  .user span{display:none}
+  .cards{grid-template-columns:repeat(2,1fr);gap:8px}
+  .metric{padding:13px}
+  .metric strong{font-size:17px}
+  .two{display:block}
+  .hero{min-height:170px;padding:21px}
+  .hero h2{font-size:23px}
+  .hero-symbol{display:none}
+  .filters{grid-template-columns:1fr}
+  .goalgrid{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .main{padding-bottom:82px}
+}
+.mobile-tip{display:none}
+@media(min-width:601px){.mobile-tip{display:block;position:fixed;top:12px;right:16px;background:#0b7a53;color:white;padding:8px 11px;border-radius:999px;font-size:10px;font-weight:800;z-index:50}}
+
+
+.billitem{display:grid;grid-template-columns:42px 1fr auto;gap:10px;align-items:center;padding:13px 0;border-bottom:1px solid var(--line)}
+.billitem:last-child{border-bottom:0}
+.billicon{width:39px;height:39px;border-radius:12px;background:#fff1e9;display:grid;place-items:center;font-size:18px}
+.billname{font-size:11px;font-weight:850}.billmeta{font-size:9px;color:var(--muted);margin-top:3px}
+.billright{text-align:right}.billamount{font-size:11px;font-weight:900;color:var(--red)}.billdue{font-size:9px;color:var(--muted);margin-top:3px}
+.billbadge{display:inline-flex;align-items:center;padding:4px 7px;border-radius:999px;font-size:8px;font-weight:900;margin-top:5px}
+.billbadge.danger{background:#ffe8eb;color:#c84452}.billbadge.warn{background:#fff1dc;color:#a66712}.billbadge.ok{background:#e4f7ee;color:#08754f}
+.billactions{display:flex;gap:5px;justify-content:flex-end;margin-top:5px}.billactions button{border:0;background:#f0f4f2;color:#65736c;border-radius:7px;font-size:9px;padding:5px 7px}.billactions .pay{background:#e2f5ec;color:var(--g)}
+.alertitem{background:#fff8ed;border:1px solid #f4dfbd;border-radius:12px;padding:10px 11px;margin-top:8px;font-size:10px;line-height:1.45}
+.alertitem strong{color:#9b6517}
+@media(max-width:600px){.billitem{grid-template-columns:40px 1fr auto}.billright{min-width:105px}}
+
+
+.budgetincome{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px}
+.budgetincome span{font-size:22px;font-weight:950;color:#153d2d}
+.budgetgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:10px 0}
+.budgetcard{min-height:170px}
+.budgettop{display:flex;align-items:center;gap:10px}
+.budgettop b{font-size:11px}.budgettop small{display:block;font-size:9px;color:var(--muted);margin-top:3px;line-height:1.35}
+.budgetcircle{min-width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:#e6f5ee;color:#08754f;font-weight:950;font-size:11px}
+.want .budgetcircle{background:#fff2dd;color:#a66712}.save .budgetcircle{background:#e8efff;color:#4d67a8}
+.budgetbar{height:9px;background:#edf2ef;border-radius:999px;overflow:hidden;margin:15px 0 9px}
+.budgetbar i{display:block;height:100%;width:0;background:#11a873;border-radius:999px;transition:width .25s}
+.want .budgetbar i{background:#e6a63b}.save .budgetbar i{background:#6685d8}
+.budgetnumbers{display:flex;justify-content:space-between;align-items:end;gap:6px}.budgetnumbers strong{font-size:13px}.budgetnumbers span{font-size:9px;color:var(--muted)}.budgetnumbers span b{color:var(--ink);font-size:10px}
+.budgetlimit{margin-top:7px;font-size:9px;color:var(--muted)}
+.budgetadvice{display:grid;gap:8px}.budgetadvice .advice{padding:10px 11px;border-radius:11px;background:#f5f8f6;font-size:10px;line-height:1.45}.budgetadvice .good{background:#e9f8f1;color:#08754f}.budgetadvice .warn{background:#fff4e3;color:#8a5c18}.budgetadvice .danger{background:#ffecef;color:#b33c4b}
+@media(max-width:600px){
+  .budgetgrid{grid-template-columns:1fr;gap:8px}
+  .budgetcard{min-height:0}
+}
+
+
+.homebudget{margin:10px 0}.homebudgetgrid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:3px}
+.homebudgetitem{padding:8px 0}.homebudgetlabel{display:flex;align-items:center;gap:6px;font-size:10px;font-weight:750;margin-bottom:5px}
+.homebudgetlabel b{margin-left:auto;font-size:10px}.homebudgetitem small{display:block;color:var(--muted);font-size:8px;margin-top:4px}
+.dot{width:7px;height:7px;border-radius:50%;display:inline-block}.needdot{background:#11a873}.wantdot{background:#e6a63b}.savedot{background:#6685d8}
+.homebudgetitem .budgetbar{margin:0;height:7px}.homebudgetitem:nth-child(1) .budgetbar i{background:#11a873}.homebudgetitem:nth-child(2) .budgetbar i{background:#e6a63b}.homebudgetitem:nth-child(3) .budgetbar i{background:#6685d8}
+@media(min-width:601px){.homebudgetgrid{grid-template-columns:repeat(3,1fr);gap:15px}}
+
+
+/* V wallet V2.8 mobile navigation + dashboard polish */
+@media(max-width:600px){
+  html,body{width:100%;min-width:0;overflow-x:hidden}
+  .shell{width:100%;min-height:100vh}
+  .side{
+    position:fixed !important;
+    top:auto !important;
+    bottom:0 !important;
+    left:0 !important;
+    right:0 !important;
+    width:100% !important;
+    height:68px !important;
+    z-index:1000 !important;
+    background:rgba(255,255,255,.97);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    border-top:1px solid var(--line) !important;
+    border-right:0 !important;
+    padding:4px 3px env(safe-area-inset-bottom,4px) !important;
+  }
+  .side .brand,.sidefoot{display:none !important}
+  .menu{
+    display:flex !important;
+    width:100%;
+    height:100%;
+    gap:0 !important;
+    justify-content:stretch !important;
+    align-items:stretch;
+  }
+  .nav{
+    flex:1 1 0 !important;
+    min-width:0 !important;
+    width:16.666% !important;
+    padding:5px 1px 3px !important;
+    margin:0 !important;
+    border-radius:9px !important;
+    display:flex !important;
+    flex-direction:column !important;
+    justify-content:center !important;
+    align-items:center !important;
+    gap:2px !important;
+    text-align:center !important;
+    font-size:7.5px !important;
+    line-height:1.05 !important;
+    white-space:normal !important;
+  }
+  .nav .ico{
+    width:auto !important;
+    height:20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:15px !important;
+  }
+  .main{
+    margin:0 !important;
+    width:100% !important;
+    max-width:none !important;
+    box-sizing:border-box;
+    padding:15px 12px 96px !important;
+  }
+  .top{margin-bottom:14px !important}
+  .top h1{font-size:23px !important}
+  .homebudget{
+    margin:10px 0 14px !important;
+    padding:13px !important;
+    overflow:hidden;
+  }
+  .homebudget .head{gap:8px;align-items:center}
+  .homebudget .head>div{min-width:0}
+  .homebudget .head b{font-size:11px}
+  .homebudget .head small{font-size:8px}
+  .homebudget .link{font-size:9px;white-space:nowrap}
+  .homebudgetgrid{grid-template-columns:1fr !important;gap:6px !important}
+  .homebudgetitem{padding:5px 0 !important}
+  .homebudgetlabel{font-size:9.5px !important}
+  .homebudgetitem small{font-size:7.5px !important}
+  .homebudgetitem .budgetbar{height:6px !important}
+  .cards{grid-template-columns:repeat(2,1fr) !important}
+}
+
+</style>
+</head>
+<body><div class="mobile-tip">📱 V wallet · Mobile preview</div>
+<div class="shell">
+<aside class="side">
+  <div class="brand"><div class="vlogo">V</div><div><b>V wallet</b><small>Your money, your control.</small></div></div>
+  <div class="menu">
+    <button class="nav active" data-page="home"><span class="ico">⌂</span>Tổng quan</button>
+    <button class="nav" data-page="transactions"><span class="ico">↔</span>Giao dịch</button>
+    <button class="nav" data-page="analysis"><span class="ico">◔</span>Phân tích</button>
+    <button class="nav" data-page="goals"><span class="ico">◎</span>Mục tiêu</button>
+    <button class="nav" data-page="bills"><span class="ico">🔔</span>Khoản phải trả</button>
+    <button class="nav" data-page="budget"><span class="ico">◔</span>Ngân sách</button>
+  </div>
+  <div class="sidefoot"><div class="shield">✓</div><div><b>Dữ liệu riêng tư</b><small>Lưu trên thiết bị</small></div></div>
+</aside>
+
+<main class="main">
+<header class="top"><div><div class="eyebrow">PERSONAL FINANCE</div><h1 id="title">Tổng quan</h1></div><div class="user"><span id="today"></span><div class="avatar">A</div></div></header>
+
+<section id="home" class="page active">
+  <div class="hero"><div><span class="tag">✦ V wallet AI</span><h2>Quản lý tiền đơn giản hơn.</h2><p>Nói hoặc gõ một câu. V wallet sẽ tách giao dịch, nhận diện số tiền và đề xuất danh mục trước khi bạn lưu.</p></div><div class="hero-symbol">₫</div></div>
+
+  <div class="ai">
+    <div class="aihead"><div class="spark">✦</div><div><b>Nhập giao dịch với AI</b><small>Ví dụ: “Cà phê 30k, đổ xăng 100k, tiền điện 650k”</small></div></div>
+    <div class="composer"><input id="aiText" placeholder="Gõ chi tiêu hoặc thu nhập..."><button class="round mic" id="mic">🎙</button><button class="round send" id="send">➤</button></div>
+    <div class="status" id="status">Bạn có thể nhập nhiều giao dịch cùng lúc · Ví dụ: “cf 30k” → Ăn uống.</div>
+  </div>
+  <div id="preview" class="preview hide"></div>
+
+  <div class="cards">
+    <div class="metric"><div class="mi green">↗</div><span>Số dư</span><strong id="balance">0đ</strong><small>Thu nhập − chi tiêu</small></div>
+    <div class="metric"><div class="mi green">₫</div><span>Thu nhập tháng</span><strong id="income">0đ</strong><small>Tháng hiện tại</small></div>
+    <div class="metric"><div class="mi red">↘</div><span>Chi tiêu tháng</span><strong id="expense">0đ</strong><small>Tháng hiện tại</small></div>
+    <div class="metric"><div class="mi purple">%</div><span>Tỷ lệ tiết kiệm</span><strong id="saving">0%</strong><small>Thu nhập còn lại</small></div>
+  </div>
+
+  <div class="card homebudget" id="homeBudgetCard">
+  <div class="head">
+    <div><b>Ngân sách tháng · 50 / 30 / 20</b><small id="homeBudgetIncome">Thiết lập thu nhập để bắt đầu</small></div>
+    <button class="link" id="homeBudgetOpen">Chi tiết</button>
+  </div>
+  <div class="homebudgetgrid">
+    <div class="homebudgetitem"><div class="homebudgetlabel"><span class="dot needdot"></span>Nhu cầu <b id="homeNeedPct">0%</b></div><div class="budgetbar"><i id="homeNeedBar"></i></div><small id="homeNeedText">0 / 0 ₫</small></div>
+    <div class="homebudgetitem"><div class="homebudgetlabel"><span class="dot wantdot"></span>Mong muốn <b id="homeWantPct">0%</b></div><div class="budgetbar"><i id="homeWantBar"></i></div><small id="homeWantText">0 / 0 ₫</small></div>
+    <div class="homebudgetitem"><div class="homebudgetlabel"><span class="dot savedot"></span>Tiết kiệm <b id="homeSavePct">0%</b></div><div class="budgetbar"><i id="homeSaveBar"></i></div><small id="homeSaveText">0 / 0 ₫</small></div>
+  </div>
+</div>
+
+
+  <div class="two">
+    <div class="card"><div class="head"><div><b>Dòng tiền</b><small>6 tháng gần nhất</small></div><div class="legend"><i class="dot i"></i>Thu <i class="dot e"></i>Chi</div></div><div class="chart" id="chart"></div></div>
+    <div class="card"><div class="head"><div><b>Chi tiêu theo nhóm</b><small>Tháng này</small></div></div><div id="cats"></div></div>
+  </div>
+
+  <div class="card"><div class="head"><div><b>Giao dịch gần đây</b><small>Hoạt động mới nhất</small></div><button class="link" data-page="transactions">Xem tất cả →</button></div><div id="recent"></div></div>
+</section>
+
+<section id="transactions" class="page">
+  <div class="section"><div><h2>Giao dịch</h2><p>Quản lý toàn bộ dòng tiền của bạn.</p></div><button class="primary" id="add">＋ Thêm giao dịch</button></div>
+  <div class="card filters"><input id="search" placeholder="⌕  Tìm giao dịch..."><select id="type"><option value="all">Tất cả</option><option value="income">Thu nhập</option><option value="expense">Chi tiêu</option></select><select id="catfilter"><option value="all">Tất cả danh mục</option></select></div>
+  <div class="card" id="all"></div>
+</section>
+
+<section id="analysis" class="page">
+  <div class="section"><div><h2>Phân tích</h2><p>Hiểu thói quen tài chính của bạn.</p></div></div>
+  <div class="cards"><div class="metric"><span>Thu nhập 30 ngày</span><strong id="ai">0đ</strong></div><div class="metric"><span>Chi tiêu 30 ngày</span><strong id="ae">0đ</strong></div><div class="metric"><span>Tiết kiệm 30 ngày</span><strong id="as">0đ</strong></div><div class="metric"><span>Khoản chi lớn nhất</span><strong id="big">0đ</strong><small id="bigname">—</small></div></div>
+  <div class="two"><div class="card"><div class="head"><b>Phân bổ chi tiêu</b></div><div id="analysisCats"></div></div><div class="card"><div class="head"><b>V wallet Insights</b></div><div id="insights"></div></div></div>
+</section>
+
+<section id="goals" class="page">
+  <div class="section"><div><h2>Mục tiêu tài chính</h2><p>Đặt mục tiêu và theo dõi tiến độ.</p></div><button class="primary" id="goalAdd">＋ Mục tiêu mới</button></div>
+  <div class="goalgrid" id="goalsList"></div>
+</section>
+
+<section id="bills" class="page">
+  <div class="section"><div><h2>Khoản phải trả</h2><p>Quản lý hóa đơn và khoản thanh toán định kỳ.</p></div><button class="primary" id="billAdd">＋ Thêm khoản</button></div>
+
+  <div class="card" id="billSummary">
+    <div class="head"><div><b>Lịch thanh toán</b><small id="billSummaryText">Không có khoản phải trả.</small></div><button class="secondary" id="enableNotif">🔔 Bật nhắc</button></div>
+    <div id="billAlerts"></div>
+  </div>
+
+  <div class="card">
+    <div class="head"><div><b>Khoản phải trả hàng tháng</b><small>Tự động lặp theo ngày bạn chọn</small></div></div>
+    <div id="billsList"></div>
+  </div>
+</section>
+
+
+<section id="budget" class="page">
+  <div class="section">
+    <div><h2>Ngân sách 50 / 30 / 20</h2><p>Chia thu nhập thành nhu cầu, mong muốn và tiết kiệm.</p></div>
+  </div>
+
+  <div class="card budgetsetup">
+    <div class="head"><div><b>Thu nhập tháng</b><small>V wallet dùng thu nhập để tính ngân sách.</small></div><div class="mi">₫</div></div>
+    <div class="budgetincome"><span id="budgetIncome">0 ₫</span><button class="secondary" id="budgetSetIncome">Thiết lập</button></div>
+  </div>
+
+  <div class="budgetgrid">
+    <div class="card budgetcard need">
+      <div class="budgettop"><div class="budgetcircle">50%</div><div><b>Nhu cầu thiết yếu</b><small>Nhà ở, ăn uống, đi lại, hóa đơn...</small></div></div>
+      <div class="budgetbar"><i id="needBar"></i></div>
+      <div class="budgetnumbers"><strong id="needUsed">0 ₫</strong><span><b id="needPct">0%</b> đã dùng</span></div>
+      <div class="budgetlimit">Ngân sách: <b id="needLimit">0 ₫</b></div>
+    </div>
+
+    <div class="card budgetcard want">
+      <div class="budgettop"><div class="budgetcircle">30%</div><div><b>Mong muốn</b><small>Mua sắm, giải trí, cà phê...</small></div></div>
+      <div class="budgetbar"><i id="wantBar"></i></div>
+      <div class="budgetnumbers"><strong id="wantUsed">0 ₫</strong><span><b id="wantPct">0%</b> đã dùng</span></div>
+      <div class="budgetlimit">Ngân sách: <b id="wantLimit">0 ₫</b></div>
+    </div>
+
+    <div class="card budgetcard save">
+      <div class="budgettop"><div class="budgetcircle">20%</div><div><b>Tiết kiệm / đầu tư</b><small>Quỹ dự phòng, tiết kiệm, đầu tư...</small></div></div>
+      <div class="budgetbar"><i id="saveBar"></i></div>
+      <div class="budgetnumbers"><strong id="saveUsed">0 ₫</strong><span><b id="savePct">0%</b> đã dùng</span></div>
+      <div class="budgetlimit">Mục tiêu: <b id="saveLimit">0 ₫</b></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="head"><div><b>Trạng thái ngân sách</b><small>So sánh số đã dùng với giới hạn 50 / 30 / 20.</small></div></div>
+    <div id="budgetAdvice" class="budgetadvice"></div>
+  </div>
+</section>
+
+</main>
+</div>
+
+<div class="modal hide" id="txModal"><div class="backdrop"></div><div class="dialog"><div class="dialoghead"><h3>Thêm giao dịch</h3><button class="close" id="txClose">×</button></div><form class="form" id="txForm"><label>Loại<select id="ftype"><option value="expense">Chi tiêu</option><option value="income">Thu nhập</option></select></label><label>Số tiền<input id="famount" type="number" min="0" required></label><label>Danh mục<select id="fcat"></select></label><label>Ngày<input id="fdate" type="date" required></label><label>Ghi chú<input id="fnote" placeholder="Ví dụ: Ăn trưa"></label><div class="formactions"><button type="button" class="secondary" id="txCancel">Hủy</button><button class="primary">Lưu giao dịch</button></div></form></div></div>
+
+
+
+<div class="modal hide" id="budgetModal"><div class="backdrop"></div><div class="dialog"><div class="dialoghead"><h3>Thiết lập thu nhập tháng</h3><button class="close" id="budgetClose">×</button></div>
+<form class="form" id="budgetForm">
+  <label>Thu nhập tháng<input id="budgetIncomeInput" type="number" min="0" required placeholder="15000000"></label>
+  <div class="formactions"><button type="button" class="secondary" id="budgetCancel">Hủy</button><button class="primary">Lưu</button></div>
+</form></div></div>
+
+<div class="modal hide" id="billModal"><div class="backdrop"></div><div class="dialog"><div class="dialoghead"><h3>Thêm khoản phải trả</h3><button class="close" id="billClose">×</button></div>
+<form class="form" id="billForm">
+  <label>Tên khoản phải trả<input id="bname" required placeholder="Ví dụ: Tiền điện"></label>
+  <label>Số tiền dự kiến<input id="bamount" type="number" min="0" required placeholder="650000"></label>
+  <label>Ngày phải trả hàng tháng<input id="bday" type="number" min="1" max="31" required value="15"></label>
+  <label>Danh mục<select id="bcat"><option>Hóa đơn</option><option>Nhà ở</option><option>Đi lại</option><option>Giải trí</option><option>Học tập</option><option>Kinh doanh</option><option>Khác</option></select></label>
+  <label>Nhắc trước<select id="bremind"><option value="0">Đúng ngày</option><option value="1">1 ngày</option><option value="3" selected>3 ngày</option><option value="7">7 ngày</option><option value="14">14 ngày</option></select></label>
+  <label>Ghi chú<input id="bnote" placeholder="Thanh toán qua ngân hàng..."></label>
+  <div class="formactions"><button type="button" class="secondary" id="billCancel">Hủy</button><button class="primary">Lưu khoản phải trả</button></div>
+</form></div></div>
+
+<div class="modal hide" id="goalModal"><div class="backdrop"></div><div class="dialog"><div class="dialoghead"><h3>Tạo mục tiêu</h3><button class="close" id="goalClose">×</button></div><form class="form" id="goalForm"><label>Tên mục tiêu<input id="gname" required placeholder="Vốn kinh doanh"></label><label>Số tiền mục tiêu<input id="gtarget" type="number" required placeholder="200000000"></label><label>Đã tích lũy<input id="gsaved" type="number" value="0"></label><div class="formactions"><button type="button" class="secondary" id="goalCancel">Hủy</button><button class="primary">Tạo mục tiêu</button></div></form></div></div>
+
+<script>
+const KEY="v_wallet_v21_transactions",GKEY="v_wallet_v21_goals";
+let tx=JSON.parse(localStorage.getItem(KEY)||"[]"),goals=JSON.parse(localStorage.getItem(GKEY)||"[]"),pending=[];
+const BKEY="v_wallet_v25_bills"; let bills=JSON.parse(localStorage.getItem(BKEY)||"[]");
+const BUKEY="v_wallet_v26_budget"; let budgetIncome=Number(localStorage.getItem(BUKEY)||0);
+const C={expense:["Ăn uống","Đi lại","Nhà ở","Hóa đơn","Mua sắm","Giải trí","Sức khỏe","Học tập","Kinh doanh","Khác"],income:["Lương","Kinh doanh","Thưởng","Hoàn tiền","Đầu tư","Khác"]};
+const I={"Ăn uống":"☕","Đi lại":"⛽","Nhà ở":"🏠","Hóa đơn":"💡","Mua sắm":"🛍","Giải trí":"🎮","Sức khỏe":"💊","Học tập":"📚","Kinh doanh":"💼","Lương":"💵","Thưởng":"🎁","Hoàn tiền":"↩","Đầu tư":"📈","Khác":"•"};
+const $=id=>document.getElementById(id),money=n=>new Intl.NumberFormat("vi-VN",{style:"currency",currency:"VND",maximumFractionDigits:0}).format(n||0),today=()=>new Date().toISOString().slice(0,10),month=()=>today().slice(0,7),esc=s=>String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+$("today").textContent=new Intl.DateTimeFormat("vi-VN",{dateStyle:"medium"}).format(new Date());
+
+function save(){localStorage.setItem(KEY,JSON.stringify(tx));localStorage.setItem(GKEY,JSON.stringify(goals));localStorage.setItem(BKEY,JSON.stringify(bills));localStorage.setItem(BUKEY,String(budgetIncome));render();checkBillNotifications()}
+function amount(s){let m=String(s).toLowerCase().replace(/,/g,".").replace(/\s/g,"").match(/([\d.]+)(tr|triệu|m|k|nghìn|ngàn)?/);if(!m)return null;let n=parseFloat(m[1]);if(/^(tr|triệu|m)$/.test(m[2]||""))n*=1e6;else if(/^(k|nghìn|ngàn)$/.test(m[2]||""))n*=1e3;return Math.round(n)}
+function classify(s){let t=s.toLowerCase();if(/lương|salary/.test(t))return["income","Lương"];if(/thưởng|bonus/.test(t))return["income","Thưởng"];if(/hoàn tiền|refund/.test(t))return["income","Hoàn tiền"];if(/đầu tư|cổ phiếu/.test(t))return["income","Đầu tư"];if(/xăng|grab|taxi|xe ôm|gửi xe/.test(t))return["expense","Đi lại"];if(/điện|nước|internet|wifi|viettel|vnpt|fpt/.test(t))return["expense","Hóa đơn"];if(/tiền nhà|thuê nhà|nhà trọ/.test(t))return["expense","Nhà ở"];if(/cà phê|cafe|càfé|cf\b|coffee|phở|pho\b|cơm|com\b|ăn |an \b|bún|bun\b|trà sữa|trasua|đồ ăn|do an|nhà hàng|nha hang|quán|quan\b/.test(t))return["expense","Ăn uống"];if(/shopee|quần áo|giày|mua |lazada|tiki/.test(t))return["expense","Mua sắm"];if(/phim|game|karaoke|du lịch/.test(t))return["expense","Giải trí"];if(/thuốc|bệnh viện|khám/.test(t))return["expense","Sức khỏe"];if(/học|khóa học|sách/.test(t))return["expense","Học tập"];if(/nhập hàng|quảng cáo|ads/.test(t))return["expense","Kinh doanh"];return[/nhận|thu|doanh thu|bán được|bán hàng/.test(t)?"income":"expense","Khác"]}
+function localAI(s){
+  return s.replace(/\bvà\b/gi,",").split(/[,;]|\s+-\s+/).map(x=>x.trim()).filter(Boolean).map(p=>{
+    let a=amount(p); if(!a)return null;
+    let [type,category]=classify(p);
+    let note=p.replace(/([\d.]+)\s*(tr|triệu|m|k|nghìn|ngàn)?/ig,"").trim()||category;
+    // Chuẩn hóa một số cách viết ngắn thường gặp.
+    note=note.replace(/^cf\b/i,"Cà phê").replace(/^cafe\b/i,"Cà phê").trim();
+    return{id:crypto.randomUUID(),type,category,amount:a,note,date:today()}
+  }).filter(Boolean)
+}
+async function parseAI(s){try{let r=await fetch("/api/parse",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:s})});if(!r.ok)throw 0;let d=await r.json();return(d.transactions||[]).map(x=>({...x,id:crypto.randomUUID(),date:x.date||today()}))}catch{return localAI(s)}}
+$("send").onclick=async()=>{let s=$("aiText").value.trim();if(!s)return;$("status").textContent="✦ V wallet AI đang phân tích...";pending=await parseAI(s);$("status").textContent="Bạn có thể nhập nhiều giao dịch cùng lúc.";preview()};
+function preview(){let p=$("preview");p.classList.remove("hide");if(!pending.length){p.innerHTML="<h3>Chưa nhận diện được giao dịch</h3><div class='txmeta'>Thử: “Cà phê 30k, đổ xăng 100k, tiền điện 650k”.</div>";return}p.innerHTML="<h3>✦ V wallet đã hiểu "+pending.length+" giao dịch</h3>"+pending.map((x,i)=>`<div class="prow"><div class="pico">${I[x.category]||"•"}</div><div><div class="txtitle">${esc(x.note||x.category)}</div><div class="txmeta">${x.category} · ${x.date}</div></div><div style="display:flex;align-items:center;gap:8px"><div class="pamount ${x.type==="income"?"in":"out"}">${x.type==="income"?"+":"−"}${money(x.amount)}</div><button class="txdelete pending-delete" data-index="${i}" title="Bỏ giao dịch này">×</button></div></div>`).join("")+`<div class="actions"><button class="secondary" id="pcancel">Hủy</button><button class="primary" id="psave">✓ Xác nhận & lưu</button></div>`;document.querySelectorAll(".pending-delete").forEach(b=>b.onclick=()=>{
+  pending.splice(Number(b.dataset.index),1);
+  preview();
+});
+$("pcancel").onclick=()=>{$("preview").classList.add("hide");pending=[]};
+$("psave").onclick=()=>{tx.push(...pending);pending=[];$("preview").classList.add("hide");$("aiText").value="";save()}
+}
+let rec=null;function voice(){let SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){$("status").textContent="Trình duyệt chưa hỗ trợ voice. Hãy dùng Chrome/Edge.";return}rec=new SR();rec.lang="vi-VN";rec.interimResults=false;rec.onstart=()=>{$("status").textContent="🔴 Đang nghe... Hãy nói tự nhiên.";$("status").classList.add("live")};rec.onend=()=>{$("status").textContent="Bạn có thể nhập nhiều giao dịch cùng lúc.";$("status").classList.remove("live")};rec.onresult=e=>{$("aiText").value=e.results[0][0].transcript;$("send").click()};rec.onerror=()=>{$("status").textContent="Không nhận được giọng nói. Hãy thử lại."}}voice();$("mic").onclick=()=>rec&&rec.start();
+
+function row(x){
+  return`<div class="tx">
+    <div class="txicon">${I[x.category]||"•"}</div>
+    <div>
+      <div class="txtitle">${esc(x.note||x.category)}</div>
+      <div class="txmeta">${x.category} · ${x.date}</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <div class="amount ${x.type==="income"?"in":"out"}">${x.type==="income"?"+":"−"}${money(x.amount)}</div>
+      <button class="txdelete" data-id="${x.id}" title="Xóa giao dịch" aria-label="Xóa giao dịch">×</button>
+    </div>
+  </div>`
+}
+function dash(){let m=month(),inc=tx.filter(x=>x.date.startsWith(m)&&x.type==="income").reduce((a,x)=>a+x.amount,0),exp=tx.filter(x=>x.date.startsWith(m)&&x.type==="expense").reduce((a,x)=>a+x.amount,0),bal=tx.reduce((a,x)=>a+(x.type==="income"?x.amount:-x.amount),0);$("balance").textContent=money(bal);$("income").textContent=money(inc);$("expense").textContent=money(exp);$("saving").textContent=inc?Math.round((inc-exp)/inc*100)+"%":"0%";cash();categories();$("recent").innerHTML=tx.length?[...tx].sort((a,b)=>b.date.localeCompare(a.date)).slice(0,6).map(row).join(""):"<div class='txmeta'>Chưa có giao dịch. Hãy thử nhập “cà phê 30k”.</div>";
+document.querySelectorAll("#recent .txdelete").forEach(b=>b.onclick=()=>deleteTx(b.dataset.id));}
+function cash(){let a=[],n=new Date();for(let i=5;i>=0;i--){let d=new Date(n.getFullYear(),n.getMonth()-i,1);a.push({k:d.toISOString().slice(0,7),l:"T"+(d.getMonth()+1),income:0,expense:0})}tx.forEach(x=>{let z=a.find(v=>v.k===x.date.slice(0,7));if(z)z[x.type]+=x.amount});let max=Math.max(1,...a.flatMap(x=>[x.income,x.expense]));$("chart").innerHTML=a.map(x=>`<div class="bargrp"><div class="bar i" style="height:${x.income/max*86}%"></div><div class="bar e" style="height:${x.expense/max*86}%"></div><label>${x.l}</label></div>`).join("")}
+function categories(target="cats"){let m={};tx.filter(x=>x.date.startsWith(month())&&x.type==="expense").forEach(x=>m[x.category]=(m[x.category]||0)+x.amount);let e=Object.entries(m).sort((a,b)=>b[1]-a[1]),max=e[0]?.[1]||1;$(target).innerHTML=e.length?e.slice(0,7).map(([k,v])=>`<div class="cat"><span>${I[k]||"•"} ${k}</span><div class="track"><div class="fill" style="width:${v/max*100}%"></div></div><b>${money(v)}</b></div>`).join(""):"<div class='txmeta'>Chưa có dữ liệu tháng này.</div>"}
+function deleteTx(id){
+  const x=tx.find(t=>t.id===id);
+  if(!x)return;
+  const ok=confirm(`Xóa giao dịch "${x.note||x.category}" — ${money(x.amount)}?`);
+  if(!ok)return;
+  tx=tx.filter(t=>t.id!==id);
+  save();
+}
+function transactions(){
+  let q=($("search").value||"").toLowerCase(),ty=$("type").value,ca=$("catfilter").value;
+  let l=tx.filter(x=>(ty==="all"||x.type===ty)&&(ca==="all"||x.category===ca)&&(`${x.note} ${x.category}`).toLowerCase().includes(q)).sort((a,b)=>b.date.localeCompare(a.date));
+  $("all").innerHTML=l.length?l.map(row).join(""):"<div class='txmeta'>Không có giao dịch phù hợp.</div>";
+  document.querySelectorAll("#all .txdelete").forEach(b=>b.onclick=()=>deleteTx(b.dataset.id));
+}
+function analysis(){let d=new Date();d.setDate(d.getDate()-30);let r=tx.filter(x=>x.date>=d.toISOString().slice(0,10)),inc=r.filter(x=>x.type==="income").reduce((a,x)=>a+x.amount,0),exp=r.filter(x=>x.type==="expense").reduce((a,x)=>a+x.amount,0);$("ai").textContent=money(inc);$("ae").textContent=money(exp);$("as").textContent=money(inc-exp);let b=[...r.filter(x=>x.type==="expense")].sort((a,b)=>b.amount-a.amount)[0];$("big").textContent=b?money(b.amount):"0đ";$("bigname").textContent=b?b.note:"—";let m={};r.filter(x=>x.type==="expense").forEach(x=>m[x.category]=(m[x.category]||0)+x.amount);let e=Object.entries(m).sort((a,b)=>b[1]-a[1]),max=e[0]?.[1]||1;$("analysisCats").innerHTML=e.length?e.map(([k,v])=>`<div class="cat"><span>${I[k]||"•"} ${k}</span><div class="track"><div class="fill" style="width:${v/max*100}%"></div></div><b>${money(v)}</b></div>`).join(""):"<div class='txmeta'>Chưa có dữ liệu.</div>";let z=[];if(!inc&&!exp)z.push("💡 Nhập thêm giao dịch để V wallet tạo insight.");else{if(inc&&exp>inc*.5)z.push("🟡 Chi tiêu đang vượt 50% thu nhập 30 ngày.");if(inc&&exp<=inc*.3)z.push("🟢 Bạn đang giữ lại ít nhất 70% thu nhập.");if(e[0])z.push(`📌 “${e[0][0]}” là nhóm chi lớn nhất: ${money(e[0][1])}.`)}$("insights").innerHTML=z.map(x=>`<div class="insight">${x}</div>`).join("")}
+function goalsRender(){$("goalsList").innerHTML=goals.length?goals.map(g=>{let p=Math.min(100,Math.round(g.saved/g.target*100));return`<div class="goal"><div class="goalhead"><span>🎯 ${esc(g.name)}</span><span class="pct">${p}%</span></div><div class="goaltrack"><div class="goalfill" style="width:${p}%"></div></div><div class="goalmoney"><span>${money(g.saved)}</span><span>${money(g.target)}</span></div></div>`}).join(""):"<div class='card'><div class='txmeta'>Chưa có mục tiêu. Hãy tạo mục tiêu đầu tiên.</div></div>"}
+function render(){dash();transactions();analysis();goalsRender();renderBills();renderBudget();renderHomeBudget()}
+function page(p){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));$(p).classList.add("active");document.querySelectorAll(".nav").forEach(x=>x.classList.toggle("active",x.dataset.page===p));$("title").textContent={home:"Tổng quan",transactions:"Giao dịch",analysis:"Phân tích",goals:"Mục tiêu"}[p]}
+document.querySelectorAll(".nav,[data-page]").forEach(b=>b.onclick=()=>page(b.dataset.page));$("search").oninput=transactions;$("type").onchange=transactions;$("catfilter").onchange=transactions;
+let allcats=[...new Set([...C.expense,...C.income])];$("catfilter").innerHTML='<option value="all">Tất cả danh mục</option>'+allcats.map(x=>`<option>${x}</option>`).join("");
+
+
+function budgetCategory(x){
+  const c=(x.category||"").toLowerCase(), n=(x.note||"").toLowerCase();
+  // 50% needs
+  if(/nhà|thuê|điện|nước|internet|hóa đơn|xăng|taxi|grab|đi lại|y tế|thuốc|học phí|bảo hiểm/.test(c+" "+n)) return "need";
+  // 20% saving/investing
+  if(/tiết kiệm|đầu tư|quỹ|saving|investment/.test(c+" "+n)) return "save";
+  // Everything else is treated as wants in the simple 50/30/20 view.
+  return "want";
+}
+
+function renderHomeBudget(){
+  const income=budgetIncome||0;
+  $("homeBudgetIncome").textContent=income?`Thu nhập ${money(income)} · Giới hạn 50 / 30 / 20`:"Thiết lập thu nhập để bắt đầu";
+  const limits={need:income*.5,want:income*.3,save:income*.2},used={need:0,want:0,save:0};
+  tx.filter(x=>x.type==="expense").forEach(x=>used[budgetCategory(x)]+=Number(x.amount||0));
+  const map={need:["homeNeedPct","homeNeedBar","homeNeedText"],want:["homeWantPct","homeWantBar","homeWantText"],save:["homeSavePct","homeSaveBar","homeSaveText"]};
+  Object.keys(map).forEach(k=>{const pct=limits[k]?(used[k]/limits[k])*100:0,ids=map[k];$(ids[0]).textContent=Math.round(pct)+"%";$(ids[1]).style.width=Math.min(100,pct)+"%";$(ids[2]).textContent=`${money(used[k])} / ${money(limits[k])}`});
+}
+
+function renderBudget(){
+  $("budgetIncome").textContent=money(budgetIncome);
+  const limits={need:budgetIncome*.5,want:budgetIncome*.3,save:budgetIncome*.2};
+  const used={need:0,want:0,save:0};
+  tx.filter(x=>x.type==="expense").forEach(x=>{used[budgetCategory(x)]+=Number(x.amount||0)});
+  ["need","want","save"].forEach(k=>{
+    const pct=limits[k]>0?(used[k]/limits[k])*100:0;
+    const visual=Math.min(100,pct);
+    $(k+"Used").textContent=money(used[k]);
+    $(k+"Limit").textContent=money(limits[k]);
+    $(k+"Pct").textContent=Math.round(pct)+"%";
+    $(k+"Bar").style.width=visual+"%";
+  });
+  if(!budgetIncome){
+    $("budgetAdvice").innerHTML="<div class='advice'>💡 Hãy thiết lập thu nhập tháng để V wallet bắt đầu tính ngân sách 50 / 30 / 20.</div>";
+    return;
+  }
+  const names={need:"Nhu cầu thiết yếu",want:"Mong muốn",save:"Tiết kiệm / đầu tư"};
+  $("budgetAdvice").innerHTML=["need","want","save"].map(k=>{
+    const pct=limits[k]?(used[k]/limits[k])*100:0;
+    let cls="good", msg="";
+    if(pct>=100){cls="danger";msg=`${names[k]} đã dùng ${Math.round(pct)}% ngân sách — bạn đã vượt giới hạn 50 / 30 / 20.`}
+    else if(pct>=80){cls="warn";msg=`${names[k]} đã dùng ${Math.round(pct)}% ngân sách — nên kiểm soát phần còn lại.`}
+    else msg=`${names[k]} đã dùng ${Math.round(pct)}% ngân sách — còn ${money(Math.max(0,limits[k]-used[k]))}.`;
+    return `<div class="advice ${cls}">${msg}</div>`
+  }).join("");
+}
+
+function pad2(n){return String(n).padStart(2,"0")}
+function nextDueDate(day){
+  const now=new Date();
+  let y=now.getFullYear(),m=now.getMonth();
+  let d=Math.min(Math.max(Number(day)||1,new Date(y,m+1,0).getDate()>0?1:1),new Date(y,m+1,0).getDate());
+  let due=new Date(y,m,d);
+  if(due<new Date(now.getFullYear(),now.getMonth(),now.getDate())) due=new Date(y,m+1,Math.min(d,new Date(y,m+2,0).getDate()));
+  return due;
+}
+function billStatus(b){
+  const due=nextDueDate(b.day), today=new Date(); today.setHours(0,0,0,0);
+  const diff=Math.ceil((due-today)/86400000);
+  if(diff<=0)return {cls:"danger",label:"Đến hạn hôm nay",diff};
+  if(diff<=Number(b.remind||0))return {cls:"warn",label:`Còn ${diff} ngày`,diff};
+  return {cls:"ok",label:`Còn ${diff} ngày`,diff};
+}
+function renderBills(){
+  const active=bills.filter(b=>b.active!==false);
+  const urgent=active.filter(b=>billStatus(b).diff<=Number(b.remind||0)).sort((a,b)=>billStatus(a).diff-billStatus(b).diff);
+  $("billSummaryText").textContent=active.length?`${active.length} khoản · Tổng dự kiến ${money(active.reduce((s,b)=>s+Number(b.amount||0),0))}/tháng`:"Không có khoản phải trả.";
+  $("billAlerts").innerHTML=urgent.length?urgent.map(b=>{
+    const st=billStatus(b);
+    return `<div class="alertitem">🔔 <strong>${esc(b.name)}</strong> — ${money(b.amount)} · ${st.label}. ${st.diff<=0?"Hôm nay là ngày thanh toán.":"Hãy chuẩn bị khoản tiền này."}</div>`
+  }).join(""):"<div class='txmeta'>✓ Không có khoản nào sắp đến hạn theo mốc nhắc bạn đặt.</div>";
+  $("billsList").innerHTML=active.length?active.sort((a,b)=>billStatus(a).diff-billStatus(b).diff).map(b=>{
+    const st=billStatus(b);
+    return `<div class="billitem">
+      <div class="billicon">${I[b.category]||"🔔"}</div>
+      <div><div class="billname">${esc(b.name)}</div><div class="billmeta">Ngày ${b.day} hàng tháng · ${esc(b.note||b.category)}</div><span class="billbadge ${st.cls}">${st.label}</span></div>
+      <div class="billright"><div class="billamount">${money(b.amount)}</div><div class="billdue">mỗi tháng</div><div class="billactions"><button class="pay" data-bill-pay="${b.id}">Đã trả</button><button data-bill-del="${b.id}">Xóa</button></div></div>
+    </div>`
+  }).join(""):"<div class='txmeta'>Chưa có khoản phải trả. Hãy thêm tiền điện, tiền nhà, Internet, khoản vay...</div>";
+  document.querySelectorAll("[data-bill-del]").forEach(btn=>btn.onclick=()=>deleteBill(btn.dataset.billDel));
+  document.querySelectorAll("[data-bill-pay]").forEach(btn=>btn.onclick=()=>markBillPaid(btn.dataset.billPay));
+}
+function deleteBill(id){
+  const b=bills.find(x=>x.id===id); if(!b)return;
+  if(!confirm(`Xóa khoản "${b.name}" khỏi danh sách nhắc thanh toán?`))return;
+  bills=bills.filter(x=>x.id!==id); save();
+}
+function markBillPaid(id){
+  const b=bills.find(x=>x.id===id); if(!b)return;
+  const d=today();
+  tx.push({id:crypto.randomUUID(),type:"expense",amount:Number(b.amount),category:b.category||"Hóa đơn",date:d,note:`${b.name} (đã trả)`});
+  save();
+  alert(`Đã ghi nhận ${b.name} — ${money(b.amount)} vào giao dịch chi tiêu hôm nay.`);
+}
+function checkBillNotifications(){
+  const now=new Date(), day=now.getDate();
+  bills.filter(b=>b.active!==false).forEach(b=>{
+    const st=billStatus(b);
+    const key=`${b.id}-${now.getFullYear()}-${now.getMonth()+1}-${st.diff}`;
+    if(st.diff<=Number(b.remind||0) && !localStorage.getItem("vwallet_notified_"+key)){
+      localStorage.setItem("vwallet_notified_"+key,"1");
+      if("Notification" in window && Notification.permission==="granted"){
+        new Notification("V wallet — Nhắc thanh toán",{body:`${b.name}: ${money(b.amount)} · ${st.label}`});
+      }
+    }
+  });
+}
+function requestBillNotifications(){
+  if(!("Notification" in window)){alert("Trình duyệt này không hỗ trợ thông báo.");return}
+  Notification.requestPermission().then(p=>{
+    if(p==="granted"){alert("Đã bật thông báo nhắc thanh toán.");checkBillNotifications()}
+    else alert("Bạn chưa cấp quyền thông báo. V wallet vẫn hiển thị cảnh báo trong ứng dụng.");
+  });
+}
+
+function formCats(){$("fcat").innerHTML=C[$("ftype").value].map(x=>`<option>${x}</option>`).join("")}formCats();$("ftype").onchange=formCats;
+function modal(id,on){$(id).classList.toggle("hide",!on)}
+$("add").onclick=()=>{modal("txModal",true);$("fdate").value=today()};$("txClose").onclick=$("txCancel").onclick=()=>modal("txModal",false);
+$("txForm").onsubmit=e=>{e.preventDefault();tx.push({id:crypto.randomUUID(),type:$("ftype").value,amount:Number($("famount").value),category:$("fcat").value,date:$("fdate").value,note:$("fnote").value||$("fcat").value});modal("txModal",false);e.target.reset();save()};
+
+
+$("homeBudgetOpen").onclick=()=>show("budget");
+$("budgetSetIncome").onclick=()=>{
+  $("budgetIncomeInput").value=budgetIncome||"";
+  modal("budgetModal",true);
+};
+$("budgetClose").onclick=$("budgetCancel").onclick=()=>modal("budgetModal",false);
+$("budgetForm").onsubmit=e=>{
+  e.preventDefault();
+  budgetIncome=Math.max(0,Number($("budgetIncomeInput").value)||0);
+  localStorage.setItem(BUKEY,String(budgetIncome));
+  modal("budgetModal",false);
+  save();
+};
+$("billAdd").onclick=()=>modal("billModal",true);
+$("billClose").onclick=$("billCancel").onclick=()=>modal("billModal",false);
+$("enableNotif").onclick=requestBillNotifications;
+$("billForm").onsubmit=e=>{
+  e.preventDefault();
+  bills.push({
+    id:crypto.randomUUID(),
+    name:$("bname").value.trim(),
+    amount:Number($("bamount").value),
+    day:Math.min(31,Math.max(1,Number($("bday").value))),
+    category:$("bcat").value,
+    remind:Number($("bremind").value),
+    note:$("bnote").value.trim(),
+    active:true
+  });
+  modal("billModal",false); e.target.reset(); $("bday").value=15; $("bremind").value=3; save();
+};
+$("goalAdd").onclick=()=>modal("goalModal",true);$("goalClose").onclick=$("goalCancel").onclick=()=>modal("goalModal",false);
+$("goalForm").onsubmit=e=>{e.preventDefault();goals.push({id:crypto.randomUUID(),name:$("gname").value,target:Number($("gtarget").value),saved:Number($("gsaved").value)});modal("goalModal",false);e.target.reset();save()};
+render();
+checkBillNotifications();
+</script>
+</body>
+</html>
